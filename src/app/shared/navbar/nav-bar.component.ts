@@ -9,6 +9,7 @@ import {StyleManager} from '../style-manager';
 import {HttpClientModule} from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {TokenService} from '../../service/token.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,19 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+  checkLogin = false;
+  name: string;
+  avatar: string;
+  constructor(private tokenService: TokenService) {
+
+  }
+  ngOnInit(): void{
+    if (this.tokenService.getToken()){
+      this.checkLogin = true;
+      this.name = this.tokenService.getName();
+      this.avatar = this.tokenService.getAvatar();
+    }
+  }
 
 }
 
